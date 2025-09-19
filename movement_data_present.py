@@ -30,7 +30,10 @@ with open('processed_data/video_data.json', 'r') as file:
 cap = cv2.VideoCapture(VIDEO_CONFIG["VIDEO_CAP"])
 cap.set(1, 100)
 (ret, tracks_frame) = cap.read()
-tracks_frame = imutils.resize(tracks_frame, width=frame_size)
+if tracks_frame is not None:
+    tracks_frame = imutils.resize(tracks_frame, width=frame_size)
+else:
+    print("Warning: tracks_frame is None, cannot resize.")
 heatmap_frame = np.copy(tracks_frame)
 print(tracks_frame.shape)
 stationary_threshold_seconds = 2
@@ -117,4 +120,3 @@ cv2.waitKey()
 cv2.destroyAllWindows()
 cap.release()
 
-    

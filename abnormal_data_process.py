@@ -70,7 +70,11 @@ print("Kurtosis: " + str(df.kurtosis()[0]))
 print("Skew: " + str(df.skew()[0]))
 print("Summary of processed data")
 print(df.describe())
-print("Acceptable energy level (mean value ** 1.05) is " + str(int(df.Energy.mean() ** 1.05)))
+mean_energy = df.Energy.mean()
+if pd.isna(mean_energy):
+    print("No energy data available to calculate acceptable energy level.")
+else:
+    print("Acceptable energy level (mean value ** 1.05) is " + str(int(mean_energy ** 1.05)))
 bins = np.linspace(int(min(energies)), int(max(energies)),100) 
 plt.xlim([min(energies)-5, max(energies)+5])
 plt.hist(energies, bins=bins, alpha=0.5)
@@ -92,7 +96,11 @@ while df.skew()[0] > 7.5:
     print("Skew: " + str(df.skew()[0]))
     print("Summary of processed data")
     print(df.describe())
-    print("Acceptable energy level (mean value ** 1.05) is " + str(int(df.Energy.mean() ** 1.05)))
+    mean_energy = df.Energy.mean()
+    if pd.isna(mean_energy):
+        print("No energy data available to calculate acceptable energy level.")
+    else:
+        print("Acceptable energy level (mean value ** 1.05) is " + str(int(mean_energy ** 1.05)))
 
     bins = np.linspace(int(min(energies)), int(max(energies)),100) 
     plt.xlim([min(energies)-5, max(energies)+5])
